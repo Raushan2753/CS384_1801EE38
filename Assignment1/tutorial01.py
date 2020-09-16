@@ -26,13 +26,19 @@ def divide(num1, num2):
 #You cant use the inbuilt python function x ** y . Write your own function
 def power(num1, num2): #num1 ^ num2
 	power = 1
-	if (num2==0):
+	if (num1==0 and num2==0):
+		power = 0
+	elif (num1!=0 and num2==0):
 		power=1
+	elif (num1==0 and num2!=0):
+		power = 0
 	elif (num2<0):
 		# making number 2 positive by multipliying it with -1
 		num2 = num2 * (-1)
 		for i in range(0,num2):
 			power *= (1/num1)
+		# Rounding power to 3 decimal places
+		power = round(power,3)
 	else:
 		for i in range(0,num2):
 			power *= num1
@@ -42,7 +48,7 @@ def power(num1, num2): #num1 ^ num2
 #You cant use the inbuilt python function. Write your own function
 def printGP(a, r, n): 
 	gp=[]
-	return gp 
+	return gp
 
 # Python 3 program to print AP.  arithmetic Progression
 #You cant use the inbuilt python function. Write your own function
