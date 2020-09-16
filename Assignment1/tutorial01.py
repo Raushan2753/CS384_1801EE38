@@ -25,7 +25,17 @@ def divide(num1, num2):
 # Function to add power function
 #You cant use the inbuilt python function x ** y . Write your own function
 def power(num1, num2): #num1 ^ num2
-	#DivisionLogic 
+	power = 1
+	if (num2==0):
+		power=1
+	elif (num2<0):
+		# making number 2 positive by multipliying it with -1
+		num2 = num2 * (-1)
+		for i in range(0,num2):
+			power *= (1/num1)
+	else:
+		for i in range(0,num2):
+			power *= num1
 	return power
 	
 # Python 3 program to print GP.  geometric Progression
