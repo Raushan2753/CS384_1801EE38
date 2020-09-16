@@ -16,14 +16,14 @@ def multiply(num1, num2):
 # Function to divide two numbers 
 def divide(num1, num2): 
 	if num2==0:
-		print(" The result is infinite as the number is divided by zero")
+		print("The result is infinite as the number is divided by zero")
 		return
 	else:
 		division = num1/num2
 		return division
 		
 # Function to add power function
-#You cant use the inbuilt python function x ** y . Write your own function	
+#You cant use the inbuilt python function x ** y . Write your own function
 def power(num1, num2): #num1 ^ num2
 	#DivisionLogic 
 	return power
