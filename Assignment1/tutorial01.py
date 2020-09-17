@@ -49,7 +49,18 @@ def power(num1, num2): #num1 ^ num2
 # Python 3 program to print GP.  geometric Progression
 #You cant use the inbuilt python function. Write your own function
 def printGP(a, r, n): 
+	if ((isinstance(a, (int,float))==False) or (isinstance(r, (int,float))==False) or (isinstance(n, int)==False)):
+		return 0
+	curr_element = a
 	gp = []
+	if (r==0 or n<=0):
+		gp.append(0)
+		return gp
+	gp.append(a)
+	for i in range(1,n):
+		curr_element *= r
+		curr_element = round(curr_element,3)
+		gp.append(curr_element)
 	return gp 
 
 # Python 3 program to print AP.  arithmetic Progression
