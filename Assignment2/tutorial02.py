@@ -20,6 +20,11 @@ def median(first_list):
 # Function to compute Standard deviation. You cant use Python functions
 def standard_deviation(first_list):
     # Standard deviation Logic
+    if (len(first_list)==0):
+        return 0
+    variance_value = variance(first_list)
+    standard_deviation_value = math.sqrt(variance_value)
+    standard_deviation_value = round(standard_deviation_value,3)
     return standard_deviation_value
 
 
@@ -123,3 +128,4 @@ def summation(first_list):
             summation_value += i
     summation_value = round( summation_value, 3)
     return summation_value
+    
