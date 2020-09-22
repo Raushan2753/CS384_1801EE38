@@ -3,6 +3,11 @@
 # Function to compute mean
 def mean(first_list):
     # mean Logic
+    if(len(first_list)==0):
+        return 0
+    summation_value = summation(first_list)
+    mean_value = summation_value/len(first_list)
+    mean_value = round(mean_value,3)
     return mean_value
 
 
