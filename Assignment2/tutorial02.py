@@ -3,11 +3,6 @@
 # Function to compute mean
 def mean(first_list):
     # mean Logic 
-    if (isinstance(first_list,list)==False):
-        return 0
-    summation_value = summation(first_list)
-    mean_value = summation_value/len(first_list)
-    mean_value = round(mean_value,3)
     return mean_value
 
 
@@ -78,13 +73,4 @@ def kurtosis(first_list):
 # Function to compute sum. You cant use Python functions
 def summation(first_list):
     # sum Logic
-    if (isinstance(first_list,list)==False):
-        return 0
-    summation_value = 0
-    for i in first_list:
-        if (isinstance(i,(int,float))==False):
-            return 0
-        else:
-            summation_value += i
-    summation_value = round( summation_value, 3)
     return summation_value
