@@ -100,6 +100,22 @@ def mae(first_list, second_list):
 # Function to compute NSE. You cant use Python functions
 def nse(first_list, second_list):
     # nse Logic
+    if (len(first_list) != len(second_list)):
+        return 0
+    # If the length of the list is zero then return 0
+    if (len(first_list)==0):
+        return 0
+    for (i,j) in zip(first_list,second_list):
+        if ((isinstance(i,(int,float))==False) or (isinstance(j,(int,float))==False)):
+            return 0
+    numerator_value = 0
+    denominator_value = 0
+    list1_mean_value = mean(first_list)
+    for (i,j) in zip(first_list,second_list):
+        numerator_value += ((i-j)*(i-j))
+        denominator_value += ((i-list1_mean_value)*(i-list1_mean_value))
+    nse_value = 1 - (numerator_value/denominator_value)
+    nse_value = round(nse_value,6)
     return nse_value
 
 
