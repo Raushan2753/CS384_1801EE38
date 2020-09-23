@@ -100,6 +100,7 @@ def mae(first_list, second_list):
 # Function to compute NSE. You cant use Python functions
 def nse(first_list, second_list):
     # nse Logic
+    # If the length of first list is different from second list then returning zero
     if (len(first_list) != len(second_list)):
         return 0
     # If the length of the list is zero then return 0
@@ -122,6 +123,36 @@ def nse(first_list, second_list):
 # Function to compute Pearson correlation coefficient. You cant use Python functions
 def pcc(first_list, second_list):
     # nse Logic
+    if (len(first_list)==0 or len(second_list)==0):
+        return 0
+    if(len(first_list) != len(second_list)):
+        return 0
+    #Calculating the mean value of first list
+    summation_value = 0
+    for i in first_list:
+        if (isinstance(i,(int,float))==False):
+            return 0
+        else:
+            summation_value += i
+    mean_value_first = summation_value/len(first_list)
+    #Calculating the mean value of second list
+    summation_value1 = 0
+    for i in second_list:
+        if (isinstance(i,(int,float))==False):
+            return 0
+        else:
+            summation_value1 += i
+    mean_value_second = summation_value1/len(second_list)
+    # Now Calculating the PCC value using mean values of first list and second list
+    numerator_part = 0
+    denominator_part1 = 0
+    denominator_part2 = 0
+    for (i,j) in zip(first_list,second_list):
+        numerator_part += ((i-mean_value_first)*(j-mean_value_second))
+        denominator_part1 += ((i-mean_value_first)*(i-mean_value_first))
+        denominator_part2 += ((j-mean_value_second)*(j-mean_value_second))
+    pcc_value = (numerator_part)/((math.sqrt(denominator_part1))*(math.sqrt(denominator_part2)))
+    pcc_value = round(pcc_value,6)
     return pcc_value
 
 
