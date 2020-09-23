@@ -159,6 +159,24 @@ def pcc(first_list, second_list):
 # Function to compute Skewness. You cant use Python functions
 def skewness(first_list):
     # Skewness Logic
+    if (len(first_list)==0):
+        return 0
+    #Calculating the mean value
+    summation_value = 0
+    for i in first_list:
+        if (isinstance(i,(int,float))==False):
+            return 0
+        else:
+            summation_value += i
+    mean_value = summation_value/len(first_list)
+    # Calculating the standard deviation value through variance
+    standard_deviation_value = standard_deviation(first_list)
+    # Now Calculating the Skewness value using mean value and standard deviation value
+    sum_value = 0
+    for i in first_list:
+        sum_value += (((i-mean_value)*(i-mean_value)*(i-mean_value))/(standard_deviation_value*standard_deviation_value*standard_deviation_value))
+    skewness_value = sum_value/len(first_list)
+    skewness_value = round(skewness_value,6)
     return skewness_value
     
 def sorting(first_list):
