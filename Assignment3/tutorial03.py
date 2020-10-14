@@ -2,7 +2,9 @@ import csv
 import os
 import re
 
-
+file = open('studentinfo_cs384.csv', 'r')
+with file:
+    reader = csv.reader(file)
 
 def course():
     # Read csv and process
