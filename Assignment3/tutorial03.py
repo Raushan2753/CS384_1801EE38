@@ -1,10 +1,16 @@
 import csv
 import os
 import re
+import shutil
+import datetime
 
-file = open('studentinfo_cs384.csv', 'r')
-with file:
-    reader = csv.reader(file)
+def del_create_analytics_folder():
+    # del the analytics folder including subfolder
+    # mkdir the analytics folder (only mkdir)
+    if(os.path.isdir(r'./analytics')):
+        shutil.rmtree('./analytics')
+    os.makedirs('./analytics')
+    pass
 
 def course():
     # Read csv and process
