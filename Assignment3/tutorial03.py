@@ -130,7 +130,36 @@ def country():
 
 def email_domain_extract():
     # Read csv and process
+    file = open('studentinfo_cs384.csv', 'r')
+    with file:
+        stud_file = csv.DictReader(file,skipinitialspace = True)
+        header = ['id', 'full_name', 'country', 'email', 'gender', 'dob', 'blood_group', 'state']
+        cd = os.getcwd()
+        path_analytics = os.path.join(cd,'analytics')
+        if(os.path.exists(path_analytics)==False):
+            os.mkdir(path_analytics)
+        email_path = os.path.join(path_analytics,'email')
+        if(os.path.exists(email_path)==False):
+            os.mkdir(email_path)
+        for row in stud_file:
+            email_name = row['email']
+            email_name = email_name.lower()
+            left_part = email_name.find('@')
+            right_part = email_name.find('.')
+            domain = email_name[left_part+1:right_part]
+            csv_domain = domain + '.csv'
+            file_path = os.path.join(email_path,csv_domain)
+            if (os.path.exists(file_path) == False):
+                with open(file_path,'a') as file1:
+                    writer = csv.DictWriter(file1, fieldnames = header)
+                    writer.writeheader()
+                    writer.writerow(row)
+            else :
+                with open(file_path, 'a') as file2 :
+                    writer = csv.DictWriter(file2, fieldnames = header)
+                    writer.writerow(row)
     pass
+
 
 
 def gender():
