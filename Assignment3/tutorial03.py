@@ -193,9 +193,47 @@ def gender():
     pass
 
 
+
 def dob():
     # Read csv and process
+    file = open('studentinfo_cs384.csv', 'r')
+    with file:
+        stud_file = csv.DictReader(file,skipinitialspace = True)
+        header = ['id', 'full_name', 'country', 'email', 'gender', 'dob', 'blood_group', 'state']
+        cd = os.getcwd()
+        path_analytics = os.path.join(cd,'analytics')
+        if(os.path.exists(path_analytics)==False):
+            os.mkdir(path_analytics)
+        dob_path = os.path.join(path_analytics,'dob')
+        if(os.path.exists(dob_path)==False):
+            os.mkdir(dob_path)
+        for row in stud_file:
+            dob_name = row['dob']
+            year_str = re.split('-',dob_name)[2]
+            year = int(year_str)
+            if (year>=1995 and year<=1999):
+                csv_dob = 'bday_1995_1999' + '.csv'
+            elif (year>=2000 and year<=2004):
+                csv_dob = 'bday_2000_2004' + '.csv'
+            elif (year>=2005 and year<=2009):
+                csv_dob = 'bday_2005_2009' + '.csv'
+            elif (year>=2010 and year<=2014):
+                csv_dob = 'bday_2010_2014' + '.csv'
+            elif (year>=2015 and year<=2020):
+                csv_dob = 'bday_2015_2010' + '.csv'
+
+            file_path = os.path.join(dob_path,csv_dob)
+            if (os.path.exists(file_path) == False):
+                with open(file_path,'a') as file1:
+                    writer = csv.DictWriter(file1, fieldnames = header)
+                    writer.writeheader()
+                    writer.writerow(row)
+            else :
+                with open(file_path, 'a') as file2 :
+                    writer = csv.DictWriter(file2, fieldnames = header)
+                    writer.writerow(row)
     pass
+
 
 
 def state():
