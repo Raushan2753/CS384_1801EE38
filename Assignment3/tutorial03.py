@@ -97,8 +97,34 @@ def course():
 
 
 
+
 def country():
     # Read csv and process
+    file = open('studentinfo_cs384.csv', 'r')
+    with file:
+        stud_file = csv.DictReader(file,skipinitialspace = True)
+        header = ['id', 'full_name', 'country', 'email', 'gender', 'dob', 'blood_group', 'state']
+        cd = os.getcwd()
+        path_analytics = os.path.join(cd,'analytics')
+        if(os.path.exists(path_analytics)==False):
+            os.mkdir(path_analytics)
+        country_path = os.path.join(path_analytics,'country')
+        if(os.path.exists(country_path)==False):
+            os.mkdir(country_path)
+        for row in stud_file:
+            country_name = row['country']
+            country_name = country_name.lower()
+            csv_country = country_name + '.csv'
+            file_path = os.path.join(country_path,csv_country)
+            if (os.path.exists(file_path) == False):
+                with open(file_path,'a') as file1:
+                    writer = csv.DictWriter(file1, fieldnames = header)
+                    writer.writeheader()
+                    writer.writerow(row)
+            else :
+                with open(file_path, 'a') as file2 :
+                    writer = csv.DictWriter(file2, fieldnames = header)
+                    writer.writerow(row)
     pass
 
 
