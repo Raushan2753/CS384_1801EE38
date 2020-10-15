@@ -300,4 +300,30 @@ def blood_group():
 # Create the new file here and also sort it in this function only.
 def new_file_sort():
     # Read csv and process
+    cd = os.getcwd()
+    path_analytics = os.path.join(cd,'analytics')
+    if(os.path.exists(path_analytics)==False):
+        os.mkdir(path_analytics)
+    header=['id','first name','last name','country','email','gender','dob','blood group','state']
+    file1=open('./analytics/studentinfo_cs384_names_split.csv','a',newline='')
+    with file1:
+        writer=csv.writer(file1)
+        writer.writerow(header)
+    file = open('./studentinfo_cs384.csv', 'r')
+    with file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0] != 'id'):
+                name_split = row[1].split(' ')
+                first_name = name_split[0]
+                last_name = name_split[1:]
+                last=''
+                for i in last_name:
+                    last=last+i+' '
+                header = [row[0], first_name, last, row[2],
+                        row[3], row[4], row[5], row[6], row[7]]
+                new_file=open('./analytics/studentinfo_cs384_names_split.csv', 'a',newline='')
+                with new_file:
+                    writer=csv.writer(new_file)
+                    writer.writerow(header) 
     pass
