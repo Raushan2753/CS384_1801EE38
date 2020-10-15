@@ -164,6 +164,32 @@ def email_domain_extract():
 
 def gender():
     # Read csv and process
+    file = open('studentinfo_cs384.csv', 'r')
+    with file:
+        stud_file = csv.DictReader(file,skipinitialspace = True)
+        header = ['id', 'full_name', 'country', 'email', 'gender', 'dob', 'blood_group', 'state']
+        cd = os.getcwd()
+        path_analytics = os.path.join(cd,'analytics')
+        if(os.path.exists(path_analytics)==False):
+            os.mkdir(path_analytics)
+        gender_path = os.path.join(path_analytics,'gender')
+        if(os.path.exists(gender_path)==False):
+            os.mkdir(gender_path)
+        for row in stud_file:
+            gender_name = row['gender']
+            gender_name = gender_name.lower()
+            csv_gender = gender_name + '.csv'
+            file_path = os.path.join(gender_path,csv_gender)
+            if (os.path.exists(file_path) == False):
+                with open(file_path,'a') as file1:
+                    writer = csv.DictWriter(file1, fieldnames = header)
+                    writer.writeheader()
+                    writer.writerow(row)
+            else :
+                with open(file_path, 'a') as file2 :
+                    writer = csv.DictWriter(file2, fieldnames = header)
+                    writer.writerow(row)
+
     pass
 
 
