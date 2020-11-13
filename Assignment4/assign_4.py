@@ -26,3 +26,35 @@ file=open('./grades/misc.csv','a',newline='')
 with file:
     writer=csv.writer(file)
     writer.writerow(header)
+#creating an empty list to store the details of performance
+roll_no_list = []
+# Now open the acad_res_stud_grades.csv file in read mode
+file = open('./acad_res_stud_grades.csv', 'r')
+with file:
+    csv_reader = csv.reader(file)
+    for row in csv_reader:
+        if(not row[0]=='sl'):
+            if(not (re.fullmatch(roll_no,row[1]) and re.fullmatch(sem_credit,row[2]) and re.fullmatch(sub_code,row[4]) and re.fullmatch(sem_credit,row[5]) and re.fullmatch(credit_obtained,row[6]))):
+                file=open('./grades/misc.csv','a',newline='')
+                with file:
+                    writer=csv.writer(file)
+                    writer.writerow(row)
+                continue
+            # Naming the csv file with name as roll_no+individual.csv
+            roll_no_csv_file = row[1] + '_individual.csv'
+            # if csv file with the given roll no do not exist then store the details in list then
+            # create the csv file then write Roll no and header into it then write the details of that rooll no
+            if(not os.path.isfile('./grades/'+roll_no_csv_file)):
+                roll_no_list.append(row[1])
+                file1 = open('./grades/'+roll_no_csv_file, 'a',newline='')
+                with file1:
+                    writer=csv.writer(file1)
+                    writer.writerow(['Roll: '+row[1]])
+                    writer.writerow(['Semester Wise Details'])
+                    writer.writerow(['Subject','Credits','Type','Grade','Sem'])
+            # Now creating another list which store the performace details
+            perf_detail_list = [row[4],row[5],row[8],row[6],row[2]]
+            file2 = open('./grades/'+roll_no_csv_file, 'a',newline='')
+            with file2:
+                writer=csv.writer(file2)
+                writer.writerow(perf_detail_list)
