@@ -58,3 +58,67 @@ with file:
             with file2:
                 writer=csv.writer(file2)
                 writer.writerow(perf_detail_list)
+
+# Now creating empty list which stores the performance details of each subject
+sub_list = []
+# Now below are the steps for spi and cpi calculation part
+for roll in roll_no_list:
+    file3 = open('./grades/'+roll+'_individual.csv','r')
+    with file3:
+        reader = csv.reader(file3)
+        for sub in reader:
+            if(re.fullmatch(sub_code,sub[0])):
+                sub_list.append(sub)
+    header_overall = ['Semester','Semester Credits','Semester Credits Cleared','SPI','Total Credits','Total Credits Cleared','CPI']
+    file4 = open('./grades/'+roll+'_overall.csv', 'a',newline='')
+    with file4:
+        writer = csv.writer(file4)
+        writer.writerow(['Roll: '+roll])
+        writer.writerow(header_overall)
+    sorted_sub_list = sorted(sub_list,key=sort_acc_to_sem)
+    sub_list.clear()   
+    sem_credit = 0
+    sem_credit_cleared = 0
+    total_credit = 0
+    total_credit_cleared = 0
+    cur_sem = 0
+    spi = 0
+    cpi = 0
+    for row in sorted_sub_list:
+        if(cur_sem == 0):
+            cur_sem = row[4]
+        if(cur_sem==row[4]):
+            sem_credit += int(row[1])
+            total_credit += int(row[1])
+            if(grades[row[3]]>0):
+                sem_credit_cleared+=int(row[1])
+                total_credit_cleared += int(row[1])
+                spi += (grades[row[3]]*int(row[1]))
+        else:
+            cpi += spi
+            cur_spi = spi/sem_credit
+            cur_spi = round(cur_spi,2)
+            cur_cpi = cpi/total_credit 
+            cur_cpi = round(cur_cpi,2)
+            list1 = [cur_sem,sem_credit,sem_credit_cleared,cur_spi,total_credit,total_credit_cleared,cur_cpi]
+            file4 = open('./grades/'+roll+'_overall.csv', 'a',newline='')
+            with file4:
+                writer = csv.writer(file4)
+                writer.writerow(list1)
+            cur_sem = row[4]
+            sem_credit = int(row[1])
+            total_credit += int(row[1])
+            if(grades[row[3]]>0):
+                sem_credit_cleared=int(row[1])
+                total_credit_cleared += int(row[1])
+                spi = (grades[row[3]]*int(row[1]))
+    cpi += spi
+    cur_spi = spi/sem_credit
+    cur_spi = round(cur_spi,2)
+    cur_cpi = cpi/total_credit 
+    cur_cpi = round(cur_cpi,2)
+    list2 = [cur_sem,sem_credit,sem_credit_cleared,cur_spi,total_credit,total_credit_cleared,cur_cpi]
+    file4 = open('./grades/'+roll+'_overall.csv', 'a',newline='')
+    with file4:
+        writer = csv.writer(file4)
+        writer.writerow(list2)
