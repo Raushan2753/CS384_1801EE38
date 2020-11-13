@@ -17,4 +17,12 @@ sub_code = re.compile(r'^[A-Z]{2}[0-9]{3}$',re.IGNORECASE)
 credit_obtained=re.compile(r'AA|AB|BC|BB|CC|CD|DD|I|F',re.IGNORECASE)
 grades = {'AA':10,'AB':9,'BB':8,'BC':7,'CC':6,'CD':5,'DD':4,'F':0,'I':0}
 header=['sl','roll','sem','year','sub_code','total_credits','credit_obtained','timestamp','sub_type']
-
+# Now create grade directory
+cd = os.getcwd()
+path_grades = os.path.join(cd,'grades')
+if(os.path.exists(path_grades)==False):
+    os.mkdir(path_grades)
+file=open('./grades/misc.csv','a',newline='')
+with file:
+    writer=csv.writer(file)
+    writer.writerow(header)
