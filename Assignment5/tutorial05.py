@@ -49,9 +49,29 @@ def rename_Game_of_Thrones(paddingseason, paddingepisode):
             os.remove(series_path+'/'+series)
     pass
 
-def rename_Sherlock(folder_name):
-    # rename Logic 
-    
+def rename_Sherlock(paddingseason, paddingepisode):
+    # rename Logic
+    series_path = r'./Subtitles/Sherlock'
+    file_compile = os.listdir(series_path)
+    for series in file_compile:
+        temp = series[series.index('.')+1:]
+        season_no = temp[1]+temp[2]
+        temp2 = temp[temp.index('E')+1:]
+        episode_no = temp2[0]+temp2[1]
+        extension = (re.split(r'\.',series)[-1]).strip()
+        while(len(season_no) < paddingseason):
+            season_no = '0'+season_no
+        if(len(season_no) > paddingseason):
+            season_no = season_no[-1*paddingseason:]
+        while(len(episode_no) < paddingepisode):
+            episode_no = '0'+episode_no
+        if(len(episode_no) > paddingepisode):
+            episode_no = episode_no[-1*paddingepisode:]
+        try:
+            os.rename(series_path+'/'+series, series_path+'/' +'Sherlock - Season '+season_no+' Episode '+episode_no+'.'+extension)
+        except:
+            os.remove(series_path+'/'+series)
+    pass
 
 def rename_Suits(folder_name):
     # rename Logic 
