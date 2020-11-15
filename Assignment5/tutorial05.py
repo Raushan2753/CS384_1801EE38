@@ -73,8 +73,34 @@ def rename_Sherlock(paddingseason, paddingepisode):
             os.remove(series_path+'/'+series)
     pass
 
-def rename_Suits(folder_name):
-    # rename Logic 
+def rename_Suits(paddingseason, paddingepisode):
+    # rename Logic
+    series_path = r'./Subtitles/Suits'
+    file_compile = os.listdir(series_path)
+    for series in file_compile:
+        split_series = series.split(' - ')
+        season_no = split_series[1][0:split_series[1].index('x')]
+        episode_no = split_series[1][split_series[1].index('x')+1:]
+        temp1 = split_series[2].split('.480')
+        temp2 = temp1[0].split('.720')
+        temp3 = temp2[0].split('.1080')
+        temp4 = temp3[0].split('.HDTV')
+        episode_name = temp4[0].split('.en')[0]
+        extension = (re.split(r'\.',series)[-1]).strip()
+        while(len(season_no) < paddingseason):
+            season_no = '0'+season_no
+        if(len(season_no) > paddingseason):
+            season_no = season_no[-1*paddingseason:]
+        while(len(episode_no) < paddingepisode):
+            episode_no = '0'+episode_no
+        if(len(episode_no) > paddingepisode):
+            episode_no = episode_no[-1*paddingepisode:]
+        try:
+            os.rename(series_path+'/'+series, series_path+'/' +
+                          split_series[0]+' - Season '+season_no+' Episode '+episode_no+' - '+episode_name+'.'+extension)
+        except:
+            os.remove(series_path+'/'+series)
+    pass
     
 
 def rename_How_I_Met_Your_Mother(folder_name):
