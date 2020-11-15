@@ -131,4 +131,23 @@ def rename_How_I_Met_Your_Mother(paddingseason, paddingepisode):
             os.remove(series_path+'/'+series)
     pass
 
-    
+Name_of_Series = input("Enter Main Title of the Web Series: ")
+series_name_in_lowercase = Name_of_Series.lower()
+paddingseason = int(input("Enter Season number padding - "))
+paddingepisode = int(input("Enter episode number padding - "))
+flag = 0
+series_header = ['FIR','Game of Thrones','Sherlock','Suits','How I Met Your Mother']
+for header in series_header:
+    if(header.lower()==series_name_in_lowercase):
+        break
+    flag+=1
+if(flag==0):
+    rename_FIR(paddingseason,paddingepisode)
+elif(flag==1):
+    rename_Game_of_Thrones(paddingseason, paddingepisode)
+elif(flag==2):
+    rename_Sherlock(paddingseason,paddingepisode)
+elif(flag==3):
+    rename_Suits(paddingseason, paddingepisode)
+elif(flag==4):
+    rename_How_I_Met_Your_Mother(paddingseason,paddingepisode)
