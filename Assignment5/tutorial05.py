@@ -142,7 +142,7 @@ for header in series_header:
         break
     flag+=1
 if(flag==0):
-    rename_FIR(paddingseason,paddingepisode)
+    rename_FIR(paddingepisode,paddingseason)
 elif(flag==1):
     rename_Game_of_Thrones(paddingseason, paddingepisode)
 elif(flag==2):
