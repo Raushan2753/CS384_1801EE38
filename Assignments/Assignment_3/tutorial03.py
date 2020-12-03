@@ -301,29 +301,40 @@ def blood_group():
 def new_file_sort():
     # Read csv and process
     cd = os.getcwd()
-    path_analytics = os.path.join(cd,'analytics')
-    if(os.path.exists(path_analytics)==False):
-        os.mkdir(path_analytics)
     header=['id','first name','last name','country','email','gender','dob','blood group','state']
-    file1=open('./analytics/studentinfo_cs384_names_split.csv','a',newline='')
-    with file1:
-        writer=csv.writer(file1)
-        writer.writerow(header)
-    file = open('./studentinfo_cs384.csv', 'r')
-    with file:
-        reader=csv.reader(file)
-        for row in reader:
-            if(row[0] != 'id'):
-                name_split = row[1].split(' ')
-                first_name = name_split[0]
-                last_name = name_split[1:]
-                last=''
-                for i in last_name:
-                    last=last+i+' '
-                header = [row[0], first_name, last, row[2],
-                        row[3], row[4], row[5], row[6], row[7]]
-                new_file=open('./analytics/studentinfo_cs384_names_split.csv', 'a',newline='')
-                with new_file:
-                    writer=csv.writer(new_file)
-                    writer.writerow(header) 
+
+    with open('studentinfo_cs384.csv','r') as file:
+        data = csv.DictReader(file)
+        path_analytics = os.path.join(cd,'analytics')
+        if(os.path.exists(path_analytics)==False):
+            os.mkdir(path_analytics)
+
+        for row in data:
+            full_name = re.split(' ',row['full_name'],maxsplit=1)
+            first_name = full_name[0]
+            last_name = full_name[1]
+            name = row.copy()
+            name['first_name'] = first_name
+            name['last_name'] = last_name
+            del name['full_name']
+            overall_file = os.path.join(cd ,'studentinfo_cs384_names_split.csv')
+            if not os.path.isfile(overall_file):
+                with open(overall_file,'w',newline='') as file:
+                    data = csv.DictWriter(file,fieldnames=header)
+                    data.writeheader()
+                
+            with open(overall_file,'a+',newline='') as file:
+                data = csv.DictWriter(file,fieldnames=header)
+                data.writerow(name)
+
+            sorted_file = os.path.join(cd , 'studentinfo_cs384_names_split_sorted_first_name.csv')
+
+            sorted_list = []
+            with open(overall_file,'r',newline='') as file:
+                data = csv.reader(file)
+                sorted_list = sorted(data, key=lambda row: row[1])
+            with open(sorted_file,'w',newline='') as file:
+                data = csv.writer(file)
+                data.writerow(header)
+                data.writerows(sorted_list[:-1])
     pass
