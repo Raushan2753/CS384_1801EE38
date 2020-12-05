@@ -88,6 +88,70 @@ def selectall(event=None):
     content_text.tag_add('sel','1.0','end')
     return "break"
    
+# find & replace functionality 
+
+def find_func(event=None):
+##using tag inbuilt function
+    def find():
+        word = find_input.get()
+        content_text.tag_remove('match','1.0',END)
+        matches = 0
+        if word :
+            start_pos = '1.0'
+            while True :
+                start_pos = content_text.search(word,start_pos,stopindex=END)
+                if(not start_pos):
+                    break
+                end_pos = f'{start_pos}+{len(word)}c'
+                content_text.tag_add('match',start_pos,end_pos)
+                matches +=1
+                start_pos=end_pos
+                content_text.tag_config('match',foreground='red',background='yellow')
+
+    def replace():
+        word = find_input.get()
+        replace_text = replace_input.get()
+        content = content_text.get(1.0,END)
+        new_content = content.replace(word,replace_text)
+        content_text.delete(1.0,END)
+        content_text.insert(1.0,new_content)
+
+
+    find_dialogue = Toplevel()
+    find_dialogue.geometry('450x250+500+200')
+    find_dialogue.resizable(0,0)
+
+    ## frame
+    find_frame = ttk.LabelFrame(find_dialogue, text ='Find/Replace')
+    find_frame.pack(pady=20)
+
+    ## labels 
+    text_find_label = ttk.Label(find_frame,text ='Find :')
+    text_replace_label = ttk.Label(find_frame,text ='Replace')
+
+    ##entry boxes 
+    find_input = ttk.Entry(find_frame,width=30)
+    replace_input = ttk.Entry(find_frame,width=30)
+
+
+    ## Button
+    find_button = ttk.Button(find_frame,text ='Find',command=find)
+    replace_button = ttk.Button(find_frame,text ='Replace',command=replace)
+
+    ##label grid
+    text_find_label.grid(row=0,column=0,padx=4,pady=4)
+    text_replace_label.grid(row=1,column=0,padx=4,pady=4)
+
+    ##entry grid
+    find_input.grid(row=0, column=1,padx=4,pady=4)
+    replace_input.grid(row=1, column=1,padx=4,pady=4)
+
+    ##button grid
+    find_button.grid(row=2 ,column=0 ,padx=8,pady=4)
+    replace_button.grid(row=2 ,column=1 ,padx=8,pady=4)
+
+    find_dialogue.mainloop()    
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #ABOUT MENU funtions!
 
@@ -221,7 +285,7 @@ edit_menu.add_command(label='Cut', accelerator='Ctrl+X', compound='left',  under
 edit_menu.add_command(label='Copy', accelerator='Ctrl+C', compound='left', underline=0, command=copy)
 edit_menu.add_command(label='Paste', accelerator='Ctrl+V', compound='left',  underline=0, command=paste)
 edit_menu.add_separator()
-#edit_menu.add_command(label='Find \& Replace', accelerator='Ctrl+F', compound='left', underline=0, command=find_func) 
+edit_menu.add_command(label='Find \& Replace', accelerator='Ctrl+F', compound='left', underline=0, command=find_func) 
 edit_menu.add_command(label='Select All', accelerator='Ctrl+A', compound='left', underline=0, command=selectall) 
 menu_bar.add_cascade(label='Edit', menu=edit_menu)
 #end of Edit Menu!
