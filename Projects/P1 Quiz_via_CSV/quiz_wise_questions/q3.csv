@@ -1,0 +1,11 @@
+ques_no,question,option1,option2,option3,option4,correct_option,marks_correct_ans,marks_wrong_ans,compulsory,time=20m
+1,MS full form is,Microsoft service,Master of Science,Master of Service,None of these,2,5,-1,n,
+2,Laws of Motion was given by,Einstein,Newton,Nikola Tesla,Rutherford,2,5,-1,n,
+3,National Sports of India,Hockey,Cricket,Badminton,Football,1,5,-1,y,
+4,5*(6/2+3),6,5,30,19,3,5,-1,n,
+5,Integration of sin(x) is,sin(x),cos(x),minus(sin(x)),tan(x),3,5,-1,n,
+6,"By default, your documents print in ________ mode", Landscape, Portrait,Page Setup,Print View,2,5,-1,y,
+7,Capital of Bihar,Bihta,Biharsharif,Patna,Amhara,3,5,-1,y,
+8,Currency of Japan,Taka,Yen,Dollar,Rupee,2,5,-1,n,
+9,Where is India Gate located?,New Delhi,Mumbai,Kolkata,Chennai,1,5,-1,n,
+10,India won the Cricket World Cup in ,2011,2003,1999,1996,1,5,-1,n,
