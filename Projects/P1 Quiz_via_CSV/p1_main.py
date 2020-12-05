@@ -329,3 +329,23 @@ def start_quiz(quiz, user):
     print(f"Total Correct Questions: {correct}")
     print(f"Total Wrong Questions: {wrong}")
     print(f"Total Marks Questions: {total_marks_obtained}/{total_marks}\n")
+
+user = register_login()
+
+if not user == []:
+    quiz = int(input("Which quiz do you want to attend ? (1/2/3): "))
+    t1 = threading.Thread(target=start_quiz, args=(quiz, user,))
+    t2 = threading.Thread(target=timer, args=(quiz,))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    end_timer = True
+    print("Press 'Ctrl+Q' to quit or 'Ctrl+Alt+E' to export data to csv")
+    key = hotkeys()
+    if key == 'export_to_csv':
+    	export_to_csv()
+    	detect_keypress = False
+    else:
+    	detect_keypress = False
