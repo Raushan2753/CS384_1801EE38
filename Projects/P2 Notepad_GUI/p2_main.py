@@ -69,7 +69,25 @@ def exit_editor(event=None):
         root.destroy()
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------#    
+# EDIT MENU functions!
 
+def cut():
+    content_text.event_generate("<<Cut>>")
+    on_content_changed()
+    return "break"
+def copy():
+    content_text.event_generate("<<Copy>>")
+    on_content_changed()
+    return "break"
+def paste():
+    content_text.event_generate("<<Paste>>")
+    on_content_changed()
+    return "break"
+
+def selectall(event=None):
+    content_text.tag_add('sel','1.0','end')
+    return "break"
+   
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #ABOUT MENU funtions!
 
@@ -199,12 +217,12 @@ menu_bar.add_cascade(label='File', menu=file_menu)
 #Edit menue begins!
 edit_menu = Menu(menu_bar, tearoff=0)
 edit_menu.add_separator()
-#edit_menu.add_command(label='Cut', accelerator='Ctrl+X', compound='left',  underline=0, command=cut) 
-#edit_menu.add_command(label='Copy', accelerator='Ctrl+C', compound='left', underline=0, command=copy)
-#edit_menu.add_command(label='Paste', accelerator='Ctrl+V', compound='left',  underline=0, command=paste)
+edit_menu.add_command(label='Cut', accelerator='Ctrl+X', compound='left',  underline=0, command=cut) 
+edit_menu.add_command(label='Copy', accelerator='Ctrl+C', compound='left', underline=0, command=copy)
+edit_menu.add_command(label='Paste', accelerator='Ctrl+V', compound='left',  underline=0, command=paste)
 edit_menu.add_separator()
 #edit_menu.add_command(label='Find \& Replace', accelerator='Ctrl+F', compound='left', underline=0, command=find_func) 
-#edit_menu.add_command(label='Select All', accelerator='Ctrl+A', compound='left', underline=0, command=selectall) 
+edit_menu.add_command(label='Select All', accelerator='Ctrl+A', compound='left', underline=0, command=selectall) 
 menu_bar.add_cascade(label='Edit', menu=edit_menu)
 #end of Edit Menu!
 
@@ -268,7 +286,7 @@ for i in ('cut', 'copy', 'paste'):
     cmd = eval(i)
     popup_menu.add_command(label=i, compound='left', command=cmd)
 popup_menu.add_separator()
-#popup_menu.add_command(label='Select All', underline=7, command=selectall)
+popup_menu.add_command(label='Select All', underline=7, command=selectall)
 content_text.bind('<Button-3>', show_popup_menu)
 
 #setting up font and size!
@@ -300,8 +318,8 @@ content_text.bind('<Control-O>', open_file)
 content_text.bind('<Control-o>', open_file)
 content_text.bind('<Control-S>', save)
 content_text.bind('<Control-s>', save)
-#content_text.bind('<Control-A>',selectall)
-#content_text.bind('<Control-a>',selectall)
+content_text.bind('<Control-A>',selectall)
+content_text.bind('<Control-a>',selectall)
 content_text.bind('<KeyPress-F1>', display_help)
 content_text.bind('<Any-KeyPress>', on_content_changed)
 content_text.tag_configure('active_line', background='ivory2')
