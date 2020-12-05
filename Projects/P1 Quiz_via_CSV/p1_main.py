@@ -79,3 +79,44 @@ def timer(quiz):
         root.update()
         time.sleep(1)
         t -= 1
+
+def register_login():
+
+    reg_users = database_data()
+    reg_roll_no = []
+    for r in reg_users:
+        reg_roll_no.append(r[1])
+
+    name = ""
+    roll_no = ""
+    password = ""
+    contact_no = 0
+
+    username = input("Username: ")
+    if username in reg_roll_no:
+        password = gp.getpass("Password:")
+
+        if bcrypt.checkpw(password.encode('utf-8'), reg_users[reg_roll_no.index(username)][2]):
+            print("Succesfully logged in!")
+            return reg_users[reg_roll_no.index(username)]
+        else:
+            print("Wrong Password")
+            register_login()
+    else:
+        print("User is not registered. Kindly register.")
+        name = input("Name: ")
+        roll_no = input("Roll No.: ")
+        contact_no = int(input("Contact No.: "))
+        password = gp.getpass("Password:")
+        hashable_pw = bytes(password, encoding="utf-8")
+        hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        con = sqlite3.connect("project1 quiz cs384.db")
+        cursor_ = con.cursor()
+        cursor_.execute(
+            "INSERT INTO project1_registration VALUES (?,?,?,?)",
+            (name, roll_no, hashed_pw, contact_no),
+        )
+        con.commit()
+        con.close()
+        print("Successfully registered!")
+        return (name, roll_no, hashed_pw, contact_no)
