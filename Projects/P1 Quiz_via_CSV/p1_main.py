@@ -120,3 +120,49 @@ def register_login():
         con.close()
         print("Successfully registered!")
         return (name, roll_no, hashed_pw, contact_no)
+
+def hotkeys():
+    tmp = ''
+    while detect_keypress:
+        try:
+            if keyboard.is_pressed('ctrl+alt+u') or keyboard.is_pressed('ctrl+alt+U'):
+                tmp = 'skip_question'
+                return tmp
+            elif keyboard.is_pressed('ctrl+alt+g') or keyboard.is_pressed('ctrl+alt+G'):
+                tmp = 'goto_question'
+                return tmp
+            elif keyboard.is_pressed('ctrl+alt+f') or keyboard.is_pressed('ctrl+alt+F'):
+                end_quiz = True
+                end_timer = True
+                tmp = 'final_submit'
+                return tmp
+            elif keyboard.is_pressed('ctrl+alt+e') or keyboard.is_pressed('ctrl+alt+E'):
+                tmp = 'export_to_csv'
+                return tmp
+            elif keyboard.is_pressed('1'):
+            	tmp = '1'
+            	print("1")
+            	return tmp
+            elif keyboard.is_pressed('2'):
+            	tmp = '2'
+            	print("2")
+            	return tmp
+            elif keyboard.is_pressed('3'):
+            	tmp = '3'
+            	print("3")
+            	return tmp
+            elif keyboard.is_pressed('4'):
+            	tmp = '4'
+            	print("4")
+            	return tmp
+            elif keyboard.is_pressed('s') or keyboard.is_pressed('S'):
+            	tmp = 's'
+            	print("s")
+            	return tmp
+            elif keyboard.is_pressed('ctrl+q') or keyboard.is_pressed('ctrl+Q'):
+            	tmp = 'q'
+            	return tmp
+        except:
+            print("an error occured")
+            break
+
